@@ -157,8 +157,7 @@ $(function() {
 is introduced to a single infection. \
 <br><br>Notice that the indirectly protected percentage increases dramatically as the vaccinated percentage nears the herd immunity threshold. \
 <br><br>Drag the blue slider right until a smiley face appears to find the herd immunity threshold.\
-<br><br><b>Click on text (and any images that appear) for explanations</b>.\
-<br><br><a href=\"http://op12no2.me/posts/1476\" target=\"_blank\">more info...</a>.'
+<br><br><b>Click on text (and any images that appear) for explanations</b>.'
   });
 
   $('#hi').popover({
