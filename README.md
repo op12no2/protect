@@ -1,4 +1,4 @@
-# protect
+# Protect
 
 A little demo to show how people are indirectly protected in an epidemic when enough people are vaccinated - herd immunity.
 
