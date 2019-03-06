@@ -6,30 +6,40 @@ It should work on touch and non touch devices including phones; the layout being
 
 The demo is not suitable for thinking about the elimination of a disease in an endemic steady state.  It is rooted in an epidemic context.
 
-<strong>Description </strong>
+## Description
 
 This demo executes an epidemic <a href="http://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology">SIR model</a> in real time as sliders change the vaccination rate V (blue) and basic reproduction number R0 (green).  All standard SIR model assumptions hold.  The purpose is to show that as the vaccination rate increases, the number of people indirectly protected from disease increases non-linearly and steeply as the vaccination rate approaches the herd immunity threshold (1-1/R0), as depicted in this sketch:-
 
-<img class="alignnone" src="indirect.png" />
+<img src="indirect.png" />
 
 A single infection is used as the trigger.  The total number of people in the population (T) remains the same through the model.
 
 The vaccine is assumed to be 100% seroprotective and long lasting - such that all those who are in the vaccinated fraction of the population are considered immune (and not infectious).  It would be easy to additionally model vaccine seroconversion rates, but essentially one can do the same by just lowering V.
 
 The initial values for the SIR model are calculated as follows:-
-<p style="padding-left: 30px;"><span style="line-height: 1.5;">S = T(1-V)
-</span>I = 1
-R = T-I-S</p>
+
+<pre>
+S = T(1-V)
+I = 1
+R = T-I-S
+</pre>
+
 i.e. the population is completely susceptible (S), other than: those vaccinated (who are assumed to be immune in R) and a single index case I.
 
 The values of the three bars are then calculates as:-
-<p style="padding-left: 30px;">VACCINATED  = V * 100%
-INFECTED = (SIR(S,I,R,R0) / T) * 100%
-PROTECTED = 100% - VACCINATED - INFECTED</p>
-<span style="line-height: 1.5;">For small values of R0, PROTECTED will have a value even when V=0, because of the low force of infection.  This is noted in the help tips rather than a whole new UI element introduced.  I tried to keep the UI very simple.</span>
 
-<span style="line-height: 1.5;">The model uses an elementary method to try and detect the end of the epidemic which typically converges in 20-100 iterations.  There is a safety limit of 2000 iterations, which is never hit using the constraints of the UI.  The SIR function itself is is defined as:-</span>
-<pre>function sir(t,i0,s0,b,k) {
+<pre>
+VACCINATED  = V * 100%
+INFECTED = (SIR(S,I,R,R0) / T) * 100%
+PROTECTED = 100% - VACCINATED - INFECTED
+</pre>
+
+For small values of R0, PROTECTED will have a value even when V=0, because of the low force of infection.  This is noted in the help tips rather than a whole new UI element introduced.  I tried to keep the UI very simple.
+
+The model uses an elementary method to try and detect the end of the epidemic which typically converges in 20-100 iterations.  There is a safety limit of 2000 iterations, which is never hit using the constraints of the UI.  The SIR function itself is is defined as:-
+
+<pre>
+function sir(t,i0,s0,b,k) {
   var r0 = t-s0-i0;
   var s1 = s0;
   var i1 = i0;
@@ -62,16 +72,23 @@ PROTECTED = 100% - VACCINATED - INFECTED</p>
     r1=r2;
   }
   return itot;
-}</pre>
-<span style="line-height: 1.5;">Note that R0 is parameterised as b and k as per standard SIR model formulations.  b being the contact rate per capita and k the recovery rate.  b is calculated as kR0 and k is fixed at 0.125.  This may seem like a limitation, but it is a property of SIR models that they behave similarly depending on b/k (R0), so the model need not be complicated by considering different recovery rates - it's all implicit in R0 (*).    Ditto for population size.</span>
+}
+</pre>
 
-<strong style="line-height: 1.5;">Link</strong>
-<p style="padding-left: 30px;"><a href="https://op12no2.github.io/protect">https://op12no2.github.io/protect</a></p>
-<strong>URL Initialisation</strong>
+Note that R0 is parameterised as b and k as per standard SIR model formulations.  b being the contact rate per capita and k the recovery rate.  b is calculated as kR0 and k is fixed at 0.125.  This may seem like a limitation, but it is a property of SIR models that they behave similarly depending on b/k (R0), so the model need not be complicated by considering different recovery rates - it's all implicit in R0. Ditto for population size.
 
-Parameters v (initial vaccination rate as a percentage) and r (initial R0) can be added to the URL to override the default values of nil and 7 respectively.  For example:-
-<p style="padding-left: 30px;"><a style="line-height: 1.5;" href="https://op12no2.github.io/protect?r=16">https://op12no2.github.io/protect?r=16</a></p>
-<p style="padding-left: 30px;"><a href="https://op12no2.github.io/protect/?v=87&amp;r=6">https://op12no2.github.io/protect?v=87&amp;r=6</a></p>
-<p style="padding-left: 30px;"><a href="https://op12no2.github.io/protect/?r=20&amp;v=100">https://op12no2.github.io/protect?r=20&amp;v=100</a></p>
- <p>This method allows R0 to be specified outside of the UI constraints.
+## Try it here
 
+<a href="https://op12no2.github.io/protect">https://op12no2.github.io/protect</a>
+
+## URL Initialisation
+
+Parameters v (initial vaccination rate as a percentage) and r (initial R0) can be added to the URL to override the default values of nil and 7 respectively. For example:-
+
+<a href="https://op12no2.github.io/protect?r=16">https://op12no2.github.io/protect?r=16</a>
+
+<a href="https://op12no2.github.io/protect/?v=87&amp;r=6">https://op12no2.github.io/protect?v=87&amp;r=6</a>
+
+<a href="https://op12no2.github.io/protect/?r=20&amp;v=100">https://op12no2.github.io/protect?r=20&amp;v=100</a>
+
+This method allows R0 to be specified outside of the UI constraints.
