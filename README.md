@@ -6,6 +6,10 @@ It should work on touch and non touch devices including phones; the layout being
 
 The demo is not suitable for thinking about the elimination of a disease in an endemic steady state.  It is rooted in an epidemic context.
 
+## Try it here
+
+<a href="https://op12no2.github.io/protect">https://op12no2.github.io/protect</a>
+
 ## Description
 
 This demo executes an epidemic <a href="http://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology">SIR model</a> in real time as sliders change the vaccination rate V (blue) and basic reproduction number R0 (green).  All standard SIR model assumptions hold.  The purpose is to show that as the vaccination rate increases, the number of people indirectly protected from disease increases non-linearly and steeply as the vaccination rate approaches the herd immunity threshold (1-1/R0), as depicted in this sketch:-
@@ -76,10 +80,6 @@ function sir(t,i0,s0,b,k) {
 </pre>
 
 Note that R0 is parameterised as b and k as per standard SIR model formulations.  b being the contact rate per capita and k the recovery rate.  b is calculated as kR0 and k is fixed at 0.125.  This may seem like a limitation, but it is a property of SIR models that they behave similarly depending on b/k (R0), so the model need not be complicated by considering different recovery rates - it's all implicit in R0. Ditto for population size.
-
-## Try it here
-
-<a href="https://op12no2.github.io/protect">https://op12no2.github.io/protect</a>
 
 ## URL Initialisation
 
